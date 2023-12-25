@@ -19,10 +19,13 @@ testPointMix = [[1, 1, 1],
                 [1, 1, 1]]
 
 # Chose how many loops you want
-totalLooping = 8
+totalLooping = 15
 
 totalSimilar = 0
 totalBackward = 0
+totalParent = 1
+
+access = False
 
 mix = copy.deepcopy([testPointMix])
 parent = copy.deepcopy([testPointParent])
@@ -30,15 +33,19 @@ currentList = copy.deepcopy(start)
 
 for loops in range(0, totalLooping):
 
+    totalSimilar = 0
+
     if currentList != end:
 
         for checking in range(0, len(mix)):
-            if currentList == mix[checking]:
+
+            if currentList == parent[totalParent - 1]:
+                totalParent -= 1
+                totalBackward += 1
                 totalSimilar += 1
 
-        for checkingParent in range(0, len(parent)):
-            if currentList == parent[checkingParent]:
-                totalBackward += 1
+            if currentList == mix[checking]:
+                totalSimilar += 1
 
         print("list number:", loops + 1)
         print(currentList, "\n")
@@ -59,6 +66,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition2)
 
@@ -77,6 +85,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition3)
 
@@ -91,6 +100,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition2)
 
@@ -110,6 +120,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition3)
 
@@ -132,6 +143,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition4)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition4)
 
@@ -150,6 +162,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition3)
 
@@ -165,6 +178,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition2)
 
@@ -183,6 +197,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition3)
 
@@ -197,6 +212,7 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
+                totalParent += 1
 
                 currentList = copy.deepcopy(swapPosition2)
 
@@ -205,8 +221,12 @@ for loops in range(0, totalLooping):
                 print("some error in per-number")
 
         elif totalSimilar >= 2:
+
             # Code below still not sure to add or not
-            # if currentList == mix[-1]:
+            if currentList == mix[-1]:
+                totalBackward += 1
+
+            # if accessBackward == 2:
             #     totalBackward += 1
             totalBackward += 1
             currentList = copy.deepcopy(mix[-totalBackward])
@@ -219,9 +239,8 @@ for loops in range(0, totalLooping):
             mix.remove(mix[0])
             mix.insert(0, start)
             parent.remove(parent[0])
+            totalParent -= 1
             # parent.insert(0, start)
-
-        totalSimilar = 0
 
     elif currentList == end:
         print("Match this value at loop: ", loops, "\n")
