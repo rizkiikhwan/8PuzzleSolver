@@ -6,8 +6,8 @@ start = [[0, 1, 2],
          [6, 7, 8]]
 
 # End point of 8 puzzle
-end = [[1, 2, 0],
-       [3, 4, 5],
+end = [[1, 2, 4],
+       [3, 0, 5],
        [6, 7, 8]]
 
 testPointParent = [[1, 1, 1],
@@ -205,6 +205,7 @@ for loops in range(0, totalLooping):
                 print("some error in per-number")
 
         elif totalSimilar >= 2:
+            # Code below still not sure to add or not
             # if currentList == mix[-1]:
             #     totalBackward += 1
             totalBackward += 1
