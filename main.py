@@ -23,7 +23,7 @@ totalLooping = 15
 
 totalSimilar = 0
 totalBackward = 0
-totalParent = 1
+totalParent = 0
 
 access = False
 
@@ -37,12 +37,14 @@ for loops in range(0, totalLooping):
 
     if currentList != end:
 
-        for checking in range(0, len(mix)):
+        for parentChecking in range(1, len(parent)):
 
-            if currentList == parent[totalParent - 1]:
-                totalParent -= 1
-                totalBackward += 1
-                totalSimilar += 1
+            if currentList == parent[-parentChecking]:
+                # totalParent -= 1
+                # totalBackward += 1
+                totalSimilar += 2
+
+        for checking in range(0, len(mix)):
 
             if currentList == mix[checking]:
                 totalSimilar += 1
