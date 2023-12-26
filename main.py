@@ -24,6 +24,7 @@ totalLooping = 15
 totalSimilar = 0
 totalBackward = 0
 totalParent = 0
+currentPosition = 0
 
 access = False
 
@@ -33,28 +34,40 @@ currentList = copy.deepcopy(start)
 
 for loops in range(0, totalLooping):
 
+    currentPosition += 1
     totalSimilar = 0
+
+    # Current value must be after Parent value, top and bottom. After current value getting used, put that in parent
+    # value
 
     if currentList != end:
 
-        for parentChecking in range(1, len(parent)):
+        # for parentChecking in range(1, len(parent)):
+        #
+        #     if currentList == parent[-parentChecking]:
+        #         totalParent -= 1
+        #         totalBackward += 1
+        #         totalSimilar += 2
 
-            if currentList == parent[-parentChecking]:
-                # totalParent -= 1
-                # totalBackward += 1
+        for checking in range(0, len(parent)):
+
+            if currentList == parent[checking]:
                 totalSimilar += 2
 
-        for checking in range(0, len(mix)):
-
-            if currentList == mix[checking]:
-                totalSimilar += 1
+        # Keep this in end first loop
+        if loops == 0:
+            mix.remove(mix[0])
+            mix.insert(0, start)
+            parent.remove(parent[0])
+            totalParent -= 1
+            # parent.insert(0, start)
 
         print("list number:", loops + 1)
         print(currentList, "\n")
 
         if totalSimilar < 2:
 
-            totalBackward = 0
+            # totalBackward = 0
 
             # First Row
             if currentList[0][0] == 0:
@@ -68,9 +81,10 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
-                totalParent += 1
 
-                currentList = copy.deepcopy(swapPosition2)
+                totalParent += 2
+
+                # currentList = copy.deepcopy(mix[loops])
 
             elif currentList[0][1] == 0:
                 swapPosition1 = copy.deepcopy(currentList)
@@ -87,9 +101,10 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
-                totalParent += 1
 
-                currentList = copy.deepcopy(swapPosition3)
+                totalParent += 3
+
+                # currentList = copy.deepcopy(swapPosition3)
 
             elif currentList[0][2] == 0:
                 swapPosition1 = copy.deepcopy(currentList)
@@ -102,9 +117,10 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
-                totalParent += 1
 
-                currentList = copy.deepcopy(swapPosition2)
+                totalParent += 2
+
+                # currentList = copy.deepcopy(swapPosition2)
 
             # Second Row
             elif currentList[1][0] == 0:
@@ -122,9 +138,10 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
-                totalParent += 1
 
-                currentList = copy.deepcopy(swapPosition3)
+                totalParent += 3
+
+                # currentList = copy.deepcopy(swapPosition3)
 
             elif currentList[1][1] == 0:
                 swapPosition1 = copy.deepcopy(currentList)
@@ -145,9 +162,10 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition4)
 
                 parent.append(currentList)
-                totalParent += 1
 
-                currentList = copy.deepcopy(swapPosition4)
+                totalParent += 4
+
+                # currentList = copy.deepcopy(swapPosition4)
 
             elif currentList[1][2] == 0:
                 swapPosition1 = copy.deepcopy(currentList)
@@ -164,9 +182,9 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
-                totalParent += 1
+                totalParent += 3
 
-                currentList = copy.deepcopy(swapPosition3)
+                # currentList = copy.deepcopy(swapPosition3)
 
             # Three Row
             elif currentList[2][0] == 0:
@@ -180,9 +198,9 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
-                totalParent += 1
+                totalParent += 2
 
-                currentList = copy.deepcopy(swapPosition2)
+                # currentList = copy.deepcopy(swapPosition2)
 
             elif currentList[2][1] == 0:
                 swapPosition1 = copy.deepcopy(currentList)
@@ -199,9 +217,9 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition3)
 
                 parent.append(currentList)
-                totalParent += 1
+                totalParent += 3
 
-                currentList = copy.deepcopy(swapPosition3)
+                # currentList = copy.deepcopy(swapPosition3)
 
             elif currentList[2][2] == 0:
                 swapPosition1 = copy.deepcopy(currentList)
@@ -214,35 +232,22 @@ for loops in range(0, totalLooping):
                 mix.append(swapPosition2)
 
                 parent.append(currentList)
-                totalParent += 1
+                totalParent += 2
 
-                currentList = copy.deepcopy(swapPosition2)
+                # currentList = copy.deepcopy(swapPosition2)
 
             # In case all of that not happening
             else:
                 print("some error in per-number")
 
+            currentList = copy.deepcopy(mix[currentPosition])
+
         elif totalSimilar >= 2:
 
-            # Code below still not sure to add or not
-            if currentList == mix[-1]:
-                totalBackward += 1
-
-            # if accessBackward == 2:
-            #     totalBackward += 1
-            totalBackward += 1
-            currentList = copy.deepcopy(mix[-totalBackward])
+            currentList = copy.deepcopy(mix[currentPosition])
 
         else:
             print("some error occurrence at similar level")
-
-        # Keep this in end first loop
-        if loops == 0:
-            mix.remove(mix[0])
-            mix.insert(0, start)
-            parent.remove(parent[0])
-            totalParent -= 1
-            # parent.insert(0, start)
 
     elif currentList == end:
         print("Match this value at loop: ", loops, "\n")
