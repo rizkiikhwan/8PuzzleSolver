@@ -254,8 +254,10 @@ for loops in range(0, totalLooping):
     else:
         print("error occurrence at loops level")
 
-print("All value of mix: ")
-print(mix)
+    if totalLooping == loops + 1 and currentList != end:
+        print("Your 8 Puzzle not Found")
+        print("Total", totalLooping, "loops \n")
+
 
 print("\nvalue of all matrix")
 for x in mix:
